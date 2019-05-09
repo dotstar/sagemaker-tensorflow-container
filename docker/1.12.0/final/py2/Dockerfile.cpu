@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python-dev \
     curl \
     nginx \
+    gcc \
  && rm -rf /var/lib/apt/lists/*
 
 # Python won’t try to write .pyc or .pyo files on the import of source modules
@@ -42,6 +43,7 @@ COPY --from=tensorflow_serving_image /usr/bin/tensorflow_model_server /usr/bin/t
 COPY $framework_installable .
 COPY $framework_support_installable .
 
+RUN pip install --upgrade pip
 RUN pip install -U --no-cache-dir \
     numpy \
     scipy \
@@ -50,13 +52,12 @@ RUN pip install -U --no-cache-dir \
     Pillow \
     h5py \
     tensorflow-serving-api==1.12.0 \
+    petastorm[tf] \
     \
     $framework_installable \
     $framework_support_installable \
     "sagemaker-tensorflow>=1.12,<1.13" && \
     \
-    rm $framework_installable && \
-    rm $framework_support_installable && \
     pip uninstall -y --no-cache-dir \ 
     markdown \
     tensorboard

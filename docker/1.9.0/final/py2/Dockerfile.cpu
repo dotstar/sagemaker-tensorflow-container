@@ -10,6 +10,9 @@ WORKDIR /root
 COPY $framework_installable .
 COPY $framework_support_installable .
 
+# Added 30April
+RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
         build-essential \
         curl \

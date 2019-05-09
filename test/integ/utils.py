@@ -36,7 +36,7 @@ def create_config_files(program, s3_source_archive, path, additional_hp={}):
         "hosts": ["algo-1"]
     }
 
-    hp = {'sagemaker_region': 'us-west-2',
+    hp = {'sagemaker_region': 'us-east-2',
           'sagemaker_program': program,
           'sagemaker_submit_directory': s3_source_archive,
           'sagemaker_container_log_level': logging.INFO}
